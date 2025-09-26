@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "api/server.js",
   "scripts": {
-    "start": "node api/server.js"
+    "start": "node api/server.js",
+    "dev": "npx nodemon api/server.js",
+    "postinstall": "prisma migrate dev --name init && prisma generate"
   },
   "author": "Laila Casadei Macêdo",
   "license": "ISC",
