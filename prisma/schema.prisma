@@ -7,20 +7,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum TipoUsuario {
+  ADMIN
+  USER
+}
+
 model User {
   id       Int    @id @default(autoincrement())
+  nome     String
   email    String @unique
+  tipo     TipoUsuario @default(USER)
   password String
 }
 
 model Plantas{
   id            Int @id @default(autoincrement())
-  nome_p        String @db.VarChar(100)
-  nome_c        String @db.VarChar(100)
-  especie       String @db.VarChar(100)
-  classe        String @db.VarChar(100)
-  origem        String @db.VarChar(100)
-  descricao     String @db.VarChar(100)
-  beneficios    String @db.VarChar(100)
-  img           String @db.VarChar(100)
+  nome_p        String 
+  nome_c        String 
+  especie       String 
+  classe        String 
+  origem        String 
+  descricao     String @db.Text
+  beneficios    String @db.Text
+  img           String @db.Text
 }

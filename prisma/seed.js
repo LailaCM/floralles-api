@@ -1,12 +1,25 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+const bcrypt = require('bcrypt');
+
 async function main() {
+  const hash = await bcrypt.hash('senha123', 10);
   await prisma.user.create({
-    data: {
-      email: 'admin@gmail.com',
-      password: 'senha123'
-    }
+    data: [
+      {
+        nome: 'Administrador',
+        email: 'admin@gmail.com',
+        tipo: 'ADMIN',
+        password: hash
+      },
+      {
+        nome: 'Usuário',
+        email: 'user@gmail.com',
+        tipo: 'USER',
+        password: hash
+      }
+    ]
   });
 
   await prisma.plantas.createMany({
@@ -19,7 +32,7 @@ async function main() {
         origem: 'Ásia e África',
         descricao: 'Erva aromática de folhas verdes utilizadas na culinária e medicina natural.',
         beneficios: 'Possui propriedades antioxidantes, anti-inflamatórias e auxilia na digestão.',
-        img: 'https://static.vecteezy.com/system/resources/previews/022/149/272/non_2x/basil-leaf-isolated-png.png'
+        img: ''
       },
       {
         nome_p: 'Aloe Vera',
@@ -29,7 +42,47 @@ async function main() {
         origem: 'África',
         descricao: 'Planta suculenta usada em cosméticos e medicina natural.',
         beneficios: 'Cicatrizante, hidratante e anti-inflamatória.',
-        img: 'https://png.pngtree.com/png-vector/20240221/ourmid/pngtree-aloe-vera-png-image_11868652.png'
+        img: ''
+      },
+      {
+        nome_p: 'Lírio',
+        nome_c: 'Lilium candidum',
+        especie: 'Liliaceae',
+        classe: 'Liliopsida',
+        origem: 'Europa e Ásia',
+        descricao: 'Planta ornamental de flores grandes e perfumadas, símbolo de pureza e renovação.',
+        beneficios: 'Usado em cosméticos e terapias aromáticas por suas propriedades calmantes.',
+        img: 'https://uploads.folhabv.com.br/2025/04/bzWzcjcR-7-dicas-de-cultivo-para-o-lirio-oriental-garantir-flores-exuberantes-no-seu-jardim-1024x683.webp'
+      },
+      {
+        nome_p: 'Flor de Lótus',
+        nome_c: 'Nelumbo nucifera',
+        especie: 'Nelumbonaceae',
+        classe: 'Magnoliopsida',
+        origem: 'Ásia',
+        descricao: 'Flor aquática sagrada em várias culturas, símbolo de pureza espiritual.',
+        beneficios: 'Usada na medicina tradicional para auxiliar na circulação e equilíbrio emocional.',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEyBlI96_NYjyZxI1xUQoMABhpj1Fbdl6PHA&s'
+      },
+      {
+        nome_p: 'Lavanda',
+        nome_c: 'Lavandula angustifolia',
+        especie: 'Lamiaceae',
+        classe: 'Magnoliopsida',
+        origem: 'Região do Mediterrâneo',
+        descricao: 'Planta aromática com flores lilases amplamente usada em cosméticos e aromaterapia.',
+        beneficios: 'Calmante natural, ajuda a reduzir o estresse e melhorar o sono.',
+        img: 'https://saude.abril.com.br/wp-content/uploads/2024/12/lavanda-beneficios-saude.jpg?crop=1&resize=1212,909'
+      },
+      {
+        nome_p: 'Vitória-Régia',
+        nome_c: 'Victoria amazonica',
+        especie: 'Nymphaeaceae',
+        classe: 'Magnoliopsida',
+        origem: 'Amazônia',
+        descricao: 'Maior planta aquática do mundo, conhecida por suas folhas circulares gigantes.',
+        beneficios: 'Símbolo da flora amazônica, possui compostos antioxidantes em suas folhas.',
+        img: 'https://flordejambu.com/wp-content/uploads/2021/11/Ninfeia-1024x577.jpg'
       }
     ]
   });

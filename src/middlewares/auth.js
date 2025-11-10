@@ -11,9 +11,7 @@ const validate = (req, res, next) => {
 
     try {
         const payload = jsonwebtoken.verify(token, process.env.SECRET_JWT);
-
-        req.headers['user'] = payload;
-
+        req.user = payload;
         next();
     } catch (err) {
         res.status(401).send({ message: "Token inválido ou expirado." });

@@ -1,6 +1,7 @@
 const express = require('express');
 const routes = express.Router();
 const { validate, createHash, validatePassword } = require('./middlewares/auth');
+const isAdmin = require('./middlewares/isAdmin');
 const jwt = require('jsonwebtoken');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
@@ -22,13 +23,13 @@ routes.get('/', (req, res) => {
 });
 
 routes.post('/register', async (req, res) => {
-    const { email, password } = req.body;
+    const { nome, email, tipo, password } = req.body;
     try {
         const hash = await createHash(password);
         const user = await prisma.user.create({
-            data: { email, password: hash }
+            data: { nome, email, tipo, password: hash }
         });
-        res.json({ message: 'Usuário criado', user: { id: user.id, email: user.email } });
+        res.json({ message: 'Usuário criado', user: { id: user.id, nome: user.nome, email: user.email, tipo: user.tipo } });
     } catch (e) {
         res.status(400).json({ error: 'Erro ao criar usuário ou email já cadastrado.' });
     }
@@ -42,13 +43,13 @@ routes.post('/login', async (req, res) => {
     const valid = await validatePassword(password, user.password);
     if (!valid) return res.status(401).json({ error: 'Credenciais inválidas' });
 
-    const token = jwt.sign({ userId: user.id }, process.env.SECRET_JWT, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user.id, tipo: user.tipo, nome: user.nome, email: user.email }, process.env.SECRET_JWT, { expiresIn: '1h' });
     res.json({ token });
 });
 
-routes.post('/plantas', validate, Plantas.create);
-routes.put('/plantas/:id', validate, Plantas.update);
-routes.delete('/plantas/:id', validate, Plantas.remove);
+routes.post('/plantas', validate, isAdmin, Plantas.create);
+routes.put('/plantas/:id', validate, isAdmin, Plantas.update);
+routes.delete('/plantas/:id', validate, isAdmin, Plantas.remove);
 
 routes.get('/plantas', Plantas.read);
 routes.get('/plantas/:id', Plantas.readOne);
