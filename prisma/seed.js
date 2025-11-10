@@ -32,17 +32,17 @@ async function main() {
         origem: 'Ásia e África',
         descricao: 'Erva aromática de folhas verdes utilizadas na culinária e medicina natural.',
         beneficios: 'Possui propriedades antioxidantes, anti-inflamatórias e auxilia na digestão.',
-        img: ''
+        img: 'https://www.instaagro.com/media/wysiwyg/plantar_manjericao.jpg'
       },
       {
-        nome_p: 'Aloe Vera',
+        nome_p: 'Babosa',
         nome_c: 'Aloe barbadensis miller',
         especie: 'Asphodelaceae',
         classe: 'Liliopsida',
         origem: 'África',
         descricao: 'Planta suculenta usada em cosméticos e medicina natural.',
         beneficios: 'Cicatrizante, hidratante e anti-inflamatória.',
-        img: ''
+        img: 'https://cdn.awsli.com.br/800x800/1539/1539472/produto/240341178/aloe-vera-6iv1z8rvf3.jpg'
       },
       {
         nome_p: 'Lírio',
