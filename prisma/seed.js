@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 async function main() {
   const hash = await bcrypt.hash('senha123', 10);
-  await prisma.user.create({
+  await prisma.user.createMany({
     data: [
       {
         nome: 'Administrador',
