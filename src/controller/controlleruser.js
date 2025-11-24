@@ -1,6 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const jwt = require('jsonwebtoken');
+const { createHash, validatePassword } = require('../middlewares/auth');
 
 const register = async (req, res) => {
     const { nome, email, tipo, password } = req.body;

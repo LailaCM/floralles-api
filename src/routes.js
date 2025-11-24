@@ -1,13 +1,14 @@
 const express = require('express');
 const routes = express.Router();
-const { validate, createHash, validatePassword } = require('./middlewares/auth');
+const { validate } = require('./middlewares/auth');
 
 const Plantas = require('./controller/controllerplantas');
 const User = require('./controller/controlleruser');
 
 routes.get('/', (req, res) => {
-    res.json({ message: 'API de Gerenciamento de Plantas',
-        routes:[
+    res.json({
+        message: 'API de Gerenciamento de Plantas',
+        routes: [
             { method: 'POST', path: '/register', description: 'Registrar um novo usuário' },
             { method: 'POST', path: '/login', description: 'Login de usuário' },
             { method: 'POST', path: '/plantas', description: 'Criar uma nova planta (autenticado)' },
@@ -16,7 +17,7 @@ routes.get('/', (req, res) => {
             { method: 'GET', path: '/plantas', description: 'Listar todas as plantas' },
             { method: 'GET', path: '/plantas/:id', description: 'Obter detalhes de uma planta específica' }
         ]
-     });
+    });
 });
 
 routes.post('/register', User.register);
