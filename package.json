@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node api/server.js",
     "dev": "npx nodemon api/server.js",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma migrate reset --force && prisma generate"
   },
   "author": "Laila Casadei Macêdo",
   "license": "ISC",
