@@ -1,6 +1,7 @@
 const express = require('express');
 const routes = express.Router();
 const { validate } = require('./middlewares/auth');
+const isAdmin = require('./middlewares/isAdmin');
 
 const Plantas = require('./controller/controllerplantas');
 const User = require('./controller/controlleruser');
