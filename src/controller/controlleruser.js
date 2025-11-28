@@ -31,7 +31,7 @@ const login = async (req, res) => {
 const update = async (req, res) => {
     const { id } = req.params;
     if (req.body.password) {
-        req.body.password = await createHash(password);
+        req.body.password = await createHash(req.body.password);
     }
     const dados = req.body;
     try {
