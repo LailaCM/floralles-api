@@ -23,7 +23,7 @@ routes.get('/', (req, res) => {
 
 routes.post('/register', User.register);
 routes.post('/login', User.login);
-routes.patch('/user', User.update);
+routes.patch('/user/:id', User.update);
 
 routes.post('/plantas', validate, isAdmin, Plantas.create);
 routes.put('/plantas/:id', validate, isAdmin, Plantas.update);
