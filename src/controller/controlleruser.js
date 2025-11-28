@@ -30,6 +30,9 @@ const login = async (req, res) => {
 
 const update = async (req, res) => {
     const { id } = req.params;
+    if (req.body.password) {
+        req.body.password = await createHash(password);
+    }
     const dados = req.body;
     try {
         const user = await prisma.user.update({
